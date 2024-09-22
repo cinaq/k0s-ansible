@@ -28,9 +28,14 @@
     - "{{ k0s_data_dir }}"
     - "{{ k0s_libexec_dir }}"
     - /var/lib/kubelet
+    - /var/lib/cni
+    - /etc/cni
     - "{{ systemd_dest }}/k0scontroller.service"
     - "{{ systemd_dest }}/k0sworker.service"
 
 - name: daemon_reload
   systemd:
     daemon_reload: yes
+
+- name: reboot machine to clean up all zombie processes
+  reboot:
